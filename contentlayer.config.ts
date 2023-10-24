@@ -1,65 +1,69 @@
-import { defineDocumentType, ComputedFields, makeSource } from 'contentlayer/source-files'
-import { writeFileSync } from 'fs'
-import readingTime from 'reading-time'
-import GithubSlugger from 'github-slugger'
-import path from 'path'
+import {
+  defineDocumentType,
+  ComputedFields,
+  makeSource,
+} from "contentlayer/source-files";
+import { writeFileSync } from "fs";
+import readingTime from "reading-time";
+import GithubSlugger from "github-slugger";
+import path from "path";
 // Remark packages
-import remarkGfm from 'remark-gfm'
-import remarkMath from 'remark-math'
+import remarkGfm from "remark-gfm";
+import remarkMath from "remark-math";
 import {
   remarkExtractFrontmatter,
   remarkCodeTitles,
   remarkImgToJsx,
   extractTocHeadings,
-} from 'pliny/mdx-plugins/index.js'
+} from "pliny/mdx-plugins/index.js";
 // Rehype packages
-import rehypeSlug from 'rehype-slug'
-import rehypeAutolinkHeadings from 'rehype-autolink-headings'
-import rehypeKatex from 'rehype-katex'
-import rehypeCitation from 'rehype-citation'
-import rehypePrismPlus from 'rehype-prism-plus'
-import rehypePresetMinify from 'rehype-preset-minify'
+import rehypeSlug from "rehype-slug";
+import rehypeAutolinkHeadings from "rehype-autolink-headings";
+import rehypeKatex from "rehype-katex";
+import rehypeCitation from "rehype-citation";
+import rehypePrismPlus from "rehype-prism-plus";
+import rehypePresetMinify from "rehype-preset-minify";
 
-const root = process.cwd()
-const isProduction = process.env.NODE_ENV === 'production'
+const root = process.cwd();
+const isProduction = process.env.NODE_ENV === "production";
 
 const computedFields: ComputedFields = {
-  readingTime: { type: 'json', resolve: (doc) => readingTime(doc.body.raw) },
+  readingTime: { type: "json", resolve: (doc) => readingTime(doc.body.raw) },
   slug: {
-    type: 'string',
-    resolve: (doc) => doc._raw.flattenedPath.replace(/^.+?(\/)/, ''),
+    type: "string",
+    resolve: (doc) => doc._raw.flattenedPath.replace(/^.+?(\/)/, ""),
   },
   path: {
-    type: 'string',
+    type: "string",
     resolve: (doc) => doc._raw.flattenedPath,
   },
   filePath: {
-    type: 'string',
+    type: "string",
     resolve: (doc) => doc._raw.sourceFilePath,
   },
-  toc: { type: 'string', resolve: (doc) => extractTocHeadings(doc.body.raw) },
-}
+  toc: { type: "string", resolve: (doc) => extractTocHeadings(doc.body.raw) },
+};
 
 export const Authors = defineDocumentType(() => ({
-  name: 'Authors',
-  filePathPattern: 'authors/**/*.mdx',
-  contentType: 'mdx',
+  name: "Authors",
+  filePathPattern: "authors/**/*.mdx",
+  contentType: "mdx",
   fields: {
-    name: { type: 'string', required: true },
-    avatar: { type: 'string' },
-    occupation: { type: 'string' },
-    company: { type: 'string' },
-    email: { type: 'string' },
-    twitter: { type: 'string' },
-    linkedin: { type: 'string' },
-    github: { type: 'string' },
-    layout: { type: 'string' },
+    name: { type: "string", required: true },
+    avatar: { type: "string" },
+    occupation: { type: "string" },
+    company: { type: "string" },
+    email: { type: "string" },
+    twitter: { type: "string" },
+    linkedin: { type: "string" },
+    github: { type: "string" },
+    layout: { type: "string" },
   },
   computedFields,
-}))
+}));
 
 export default makeSource({
-  contentDirPath: 'data',
+  contentDirPath: "data",
   documentTypes: [Authors],
   mdx: {
     cwd: process.cwd(),
@@ -74,11 +78,10 @@ export default makeSource({
       rehypeSlug,
       rehypeAutolinkHeadings,
       rehypeKatex,
-      [rehypeCitation, { path: path.join(root, 'data') }],
-      [rehypePrismPlus, { defaultLanguage: 'js', ignoreMissing: true }],
+      [rehypeCitation, { path: path.join(root, "data") }],
+      [rehypePrismPlus, { defaultLanguage: "js", ignoreMissing: true }],
       rehypePresetMinify,
     ],
   },
-  onSuccess: async (importData) => {
-  },
-})
+  onSuccess: async (importData) => {},
+});

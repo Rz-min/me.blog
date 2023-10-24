@@ -1,6 +1,6 @@
 //
-import siteMetadata from '@/data/siteMetadata'
-import About from './about/page'
+import siteMetadata from "@/data/siteMetadata";
+import About from "./about/page";
 
 function Home() {
   return (
@@ -17,9 +17,9 @@ function Home() {
       </div>
       <About />
     </>
-  )
+  );
 }
 
 export default async function Page() {
-  return <Home />
+  return <Home />;
 }
