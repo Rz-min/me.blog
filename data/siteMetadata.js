@@ -12,7 +12,7 @@ const siteMetadata = {
   siteLogo: "/static/images/logo.png",
   socialBanner: "https://github.com/Rz-min/me.blog",
   mastodon: "https://github.com/Rz-min/me.blog",
-  email: "https://github.com/Rz-min/me.blog",
+  email: "mailto:rui.iizumi.20+job@gmail.com",
   github: "https://github.com/Rz-min",
   twitter: "https://github.com/Rz-min/me.blog",
   facebook: "https://github.com/Rz-min/me.blog",
