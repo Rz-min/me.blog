@@ -3,8 +3,13 @@
 export default function Page() {
   return (
     <>
-      <h1>Page</h1>
-      <p>This is a page</p>
+      <h1>Under construction...</h1>
+      <p>ping</p>
+      <p>ping</p>
+      <p>ping</p>
+      <p>ping</p>
+      <p>ping</p>
+      <p>ping</p>
     </>
   );
 }
